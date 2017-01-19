@@ -1,0 +1,23 @@
+
+% Simulation loop
+T0 = clock;
+theta = 1.7*(pi()/180);
+OMEGA = 2/1000; % Angular Frequency (Hz)
+tlaststep = 0;
+Ang = 0;
+Angout = [0];
+Tout = [0];
+
+for j = 1:10000
+t = etime(clock,T0)*1000; % t = millis();
+
+AngRate = sin(OMEGA*((2*pi())*t));
+Tstep = (1/AngRate)*theta;
+
+    if t>=Tstep + tlaststep
+        Ang = Ang + theta;
+        Angout = [Angout; Ang];
+        tlaststep = etime(clock,T0)*1000;
+        Tout = [Tout; tlaststep];
+    end
+end
